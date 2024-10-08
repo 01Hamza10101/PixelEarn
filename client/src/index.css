@@ -1,0 +1,63 @@
+:root {
+  --light-dark-color:#314156;
+  --background:#202a38;
+  --head-background:#171f2a;
+  --font-secondry-color:#8794a1;
+  --btn-primary-bg-color:#248bda;
+  --app-primary-color: #4db2ff;
+
+  font-family: ProductSans,-apple-system,system-ui,sans-serif;
+  /* font-family: Arial, serif; */
+  line-height: 1;
+  font-size: 16px;
+  font-weight: 600;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: white;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  --fade-in-duration: 20ms;
+  --fade-in-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  --fade-in-delay: 50ms;
+}
+
+.History,.Wallet,.Home{
+  opacity: 0;
+  animation: fadeIn var(--fade-in-duration) var(--fade-in-timing-function) var(--fade-in-delay) forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+
+html,body{
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #171f2a;
+  /* overflow: hidden; */
+  scrollbar-width: none;
+}
+
+.hide{
+  display: none;
+}
+.ftrInvert{
+  filter: brightness(0) invert(1);
+}
+
+.ftrInvert6{
+  filter: brightness(0) invert(0.7);
+}
+.blue-filter {
+  filter: invert(0.5) sepia(0.1) saturate(10000%) hue-rotate(190deg);
+}

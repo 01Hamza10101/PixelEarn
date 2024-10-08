@@ -1,0 +1,241 @@
+
+.Leaderboard{
+    width: 100%;
+    height: calc(100vh - 65px);
+    overflow: auto;
+    scrollbar-width: none;
+}
+
+.Leaderboard .Lhead .Back_Btn{
+    height: fit-content;
+}
+.Leaderboard .Lhead .Back_Btn button img{
+    width: 25px;
+    padding: 6px;
+}
+.Leaderboard .Lhead {
+    padding: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.squad-img-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.description-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 16px;
+    color: #8794a1;
+}
+
+.more-details {
+    color: #888;
+    font-size: 14px;
+}
+
+.league-panel{
+    display: flex;
+    justify-content: center;
+}
+
+.league-panel > div{
+    width: 250px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.league-item {
+    padding: 5px;
+    height: 33px;
+    width: 45px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    font-size: 12px;
+    color: #8794a1;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.league-item.active {
+    color: white;
+}
+.league-text{
+    display: flex;
+    height: 7px;
+    background: var(--app-primary-color);
+    height: 5px;
+    border-radius: 3px 3px 0px 0px;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.info-layout {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    background-color: var(--background);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-container {
+    width: 100%;
+}
+
+.stat-container {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.user-squad-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.squad-avatar-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.user-squad-position {
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 3px 5px;
+    border-radius: 50%;
+}
+
+.user-squad-info {
+    flex-grow: 1;
+}
+
+.user-squad-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.user-squad-text {
+    font-size: 14px;
+    color: #888;
+}
+
+.user-squad-users-count {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.base-item {
+    margin-bottom: 20px;
+}
+
+.rating-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.avatar-container {
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.position {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    background-color: #333;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 50%;
+}
+
+.rating-main-info {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.rating-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+.rating-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+.Leaderboard .rating_item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    margin-bottom: 30px;
+    background: var(--head-background);
+    position: relative;
+}
+
+.Leaderboard .rating_item .Rank{
+    box-sizing: border-box;
+    position: absolute;
+    left: 0px;
+    top: -20px;
+    padding: 2px;
+    border-radius: 3px 3px 0px 0px;
+    min-width: 40px;
+    height:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: var(--head-background);
+    font-size: 12px;
+}
+.Leaderboard .rating_item img{
+    width: 40px;
+    border-radius: 5px;
+}
+
+.Leaderboard .rating_item .rating_main_info{
+    width: 60%;
+}
+
+.Leaderboard .rating_item ._rating_Pixel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Leaderboard .rating_item ._rating_Pixel .PixelIcon{
+    margin: 5px;
+    width: 5px;
+    height: 5px;
+    border: 3px solid white;
+}

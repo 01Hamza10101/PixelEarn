@@ -1,0 +1,182 @@
+.Home {
+    /* background-color: #03A696; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 35px 0;
+}
+
+.Home .CanvasDiv {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+canvas {
+    width: 300px;
+    height: 300px;
+    cursor: pointer;
+}
+
+button {
+    user-select: none;
+}
+
+.xy {
+    user-select: none;
+}
+
+.Home .Paint_Color {
+    background-color: var(--background);
+    width: 90%;
+    /* height: 100px; */
+    padding: 14px;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 25px;
+    user-select: none;
+}
+
+.Home .Paint_Color .Color_Cordinate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+    color: var(--font-secondry-color);
+}
+
+.Home .Paint_Color .Color_Cordinate .Color {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 10px;
+    border: 3px solid white;
+    cursor: pointer;
+}
+
+.Home .Paint_Color .Color_Cordinate .Cordinaate {
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+}
+
+.Home .Paint_Color .Color_Cordinate .Cordinaate img{
+    width: 15px;
+    opacity: 0.6;
+}
+.Home .Paint_Color .Info_button button {
+    border-radius: 8px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: var(--font-secondry-color);
+    /* background-color: var(--light-dark-color); */
+    width: 54px;
+    height: 36px;
+}
+
+
+.Home .Paint_Color .Color_Palate{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    padding: 5px 0 ;
+}
+
+.Home .Paint_Color .Color_Palate .Color_Item{
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Home .Paint_Color .Paint_button {
+    margin: 10px 0px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--btn-primary-bg-color);
+    display: flex;
+    position: relative;
+}
+.Home .Paint_Color .Paint_button:hover {
+    background-color: #1e81cd;
+}
+.Home .Paint_Color .Paint_button span {
+    background-color:#202a3824;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px 0;
+    width: 60px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.Home .Paint_Color .Paint_button span img {
+    width: 20px;
+}
+
+.Home .Paint_Color .Paint_button button{
+    width: 100%;
+    line-height: 1;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: transparent;
+    z-index: 1;
+}
+
+.Home .Paint_Color .Paint_button .progress{
+    position: absolute;
+    height: 100%;
+    background-color: #202a384d;
+}
+
+@keyframes fadeUp {
+    0% {
+      opacity: 1;
+      transform: translateY(0); /* Start 100px lower */
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-60px); /* End at its normal position */
+    }
+  }
+  
+  .Home .Paint_Color .Px_Animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    gap: 10px;
+    opacity: 0; /* Ensure it's initially hidden */
+    animation: fadeUp 1.5s ease-in-out forwards; /* Apply animation */
+  }
+  
+  .Home .Paint_Color .PixelIcon {
+    width: 6px;
+    height: 6px;
+    border: 4px solid white; /* Example styling for the PixelIcon */
+  }
+  
+/* .Height0{
+    transition: height 0.2s ease;
+    height: 0;
+} */
+.Color_Palate {
+    overflow: hidden; /* Hide the content when height is 0 */
+  }
+  
+  .Color_Palate.Collapsed {
+    height: 0px;
+    opacity: 0.8;
+  }
+  
+  .Color_Palate.Expanded {
+    height: 100px;
+    opacity: 1;
+  }
+  

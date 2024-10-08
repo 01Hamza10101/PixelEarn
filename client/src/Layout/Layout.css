@@ -1,0 +1,69 @@
+
+.Layout{
+    width: 100%;
+    height: 100%;
+}
+
+.Layout .head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px;
+    /* height: 60px; */
+    background-color: var(--background);
+    /* width: 100%; */
+}
+.Layout .head img{
+    width: 45px;
+}
+.Layout .head button ,.layoutBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    padding: 0;
+    border: none;
+    background-color: #293648;
+    border-radius: 10px;
+    transition: background-color 0.5s ease-in-out;
+}
+.Layout button:hover,.Layout .Pixels:hover{
+    cursor: pointer;
+    background-color: var(--light-dark-color);
+}
+
+
+.Layout .head .Ratings_Invites{
+    display: flex;
+}
+.Layout .head .Invite_button ,.Layout .head .Store_button{
+    padding: 10px;
+}
+.Layout .head .Invite_button img ,.Layout .head .Store_button img{
+    width: 25px;
+}
+
+
+.Layout .Pixels{
+    display: flex;
+    gap: 10px;
+    height: fit-content;
+    background-color: #293648;
+    padding: 10px;
+    letter-spacing: 1px;
+    border-radius: 10px;    
+    user-select: none;
+    transition: background-color 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Layout .Pixels .PixelIcon{
+    width: 8px;
+    height: 8px;
+    border: 6px solid white;
+}
+.Layout .body{
+    width: 100%;
+    height: calc(100% - 60px);
+}

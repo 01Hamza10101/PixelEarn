@@ -1,0 +1,331 @@
+.Wallet {
+    height: 600px;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.Wallet .Whead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.Wallet .Whead button img {
+    width: 25px;
+    padding: 6px;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .PxIcon {
+    width: 36px;
+    height: 36px;
+    border: 45px solid #c2d9e4;
+    box-shadow: 0px 0px 250px white;
+    margin: 18px;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .PX {
+    font-size: 30px;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .PXTitle {
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.492);
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Mining_Details {
+    color: var(--app-primary-color);
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    display: flex;
+    margin: 5px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Mining_Details img {
+    width: 20px;
+    rotate: 180deg;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Mining_Details:hover {
+    text-decoration: underline;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Claim_Button {
+    margin: 0 0 10px 0;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Claim_Button button {
+    width: 250px;
+    height: 30px;
+    border-radius: 5px;
+    font-family: arial;
+    font-size: 15px;
+    gap: 5px;
+    padding: 20px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #0000ff, #00ffff);
+    transition: background 1s ease-in-out;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Claim_Button button:hover {
+    background: linear-gradient(135deg, #0000ffb3, #00ffff9b);
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Claim_Button button .PXIcon {
+    width: 5px;
+    height: 5px;
+    border: 4px solid white;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Menu_Buttons {
+    width: 90%;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Menu_Buttons button {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    font-family: arial;
+    font-size: 15px;
+    letter-spacing: 1.1px;
+    gap: 5px;
+    padding: 20px;
+    font-weight: 500;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Menu_Buttons>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Wallet .Wbody .Px_Contaner_Balance .Menu_Buttons .bottom {
+    width: 40px;
+    background: var(--btn-primary-bg-color);
+    height: 5px;
+    border-radius: 3px 3px 0px 0px;
+    transition: opacity 0.2s ease-in-out;
+}
+
+
+
+.Wallet .Wbody .Tasks_Boosts  .Tasks, .Wallet .Wbody .Tasks_Boosts .Boosts{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background-color: var(--background);
+}
+
+.Wallet .Wbody .Tasks_Boosts  .TaskItem {
+    display: flex;
+    align-items: center;
+    background-color: var(--head-background);
+    border-radius: 8px;
+    padding: 12px;
+    width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    user-select: none;
+    cursor: pointer;
+}
+
+.Wallet .Wbody .Tasks_Boosts  .TaskContent {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.Wallet .Wbody .Tasks_Boosts  .ImageContainer {
+    margin-right: 16px;
+}
+.Wallet .Wbody .Tasks_Boosts  .ImageContainer img{
+    border-radius: 10px;
+}
+.Wallet .Wbody .Tasks_Boosts  .TaskImage {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.Wallet .Wbody .Tasks_Boosts  .TaskInfo {
+    flex: 1;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Wallet .Wbody .Tasks_Boosts  .TaskTitle {
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+}
+
+.Wallet .Wbody .Tasks_Boosts  .TaskReward {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.492);
+}
+
+.Wallet .Wbody .Tasks_Boosts  .TaskIconContainer {
+    margin-left: 16px;
+}
+
+.Wallet .Wbody .Tasks_Boosts  .TaskItem .TaskIconContainer img{
+    rotate: 180deg;
+    width: 25px;
+}
+
+.Wallet .Wbody .Tasks_Boosts  .TaskIcon {
+    font-size: 20px;
+    color: #007bff;
+}
+@keyframes SlideUp {
+    0% {
+      transform: translateY(300px); /* Start 300px lower */
+    }
+    100% {
+      transform: translateY(0px); /* End at its normal position */
+    }
+  }
+  
+  @keyframes SlideDown {
+    0% {
+      transform: translateY(0px); /* Start at normal position */
+    }
+    100% {
+      display: none;
+      transform: translateY(400px); /* Slide down by 300px */
+    }
+  }
+  
+  .Wallet .Wbody .Tasks_Boosts .NotificationContainer {
+    position: absolute;
+    background: #202a38;
+    height: 320px;
+    bottom: 0;
+    width: 89%;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+  }
+  
+  /* Trigger the pop-up animation */
+  .NotificationContainer.SlideUp {
+    animation: SlideUp 0.4s ease-in-out forwards;
+  }
+  
+  /* Trigger the slide down (hide) animation */
+  .NotificationContainer.SlideDown {
+    animation: SlideDown 0.4s ease-in-out forwards;
+  }
+  
+  
+  /* If the content inside the notification needs to scroll */
+  .Wallet .Wbody .Tasks_Boosts .NotificationContent {
+    max-height: 100%; /* Ensure content does not overflow */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+  }
+  
+.NotificationContainer {
+    background-color: var(--bg-secondary-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--font-primary-color);
+    /* max-width: 300px; */
+  }
+  
+  .NotificationHeader {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 22px;
+  }
+  
+  .NotificationTitle {
+    color: var(--font-primary-color);
+  }
+  
+  .NotificationLevel {
+    color: var(--font-secondary-color);
+  }
+  
+  .NotificationImageContainer {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .NotificationImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .NotificationDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .DescriptionText {
+    text-align: center;
+    line-height: 110%;
+    font-size: 14px;
+    color: #8794a1;
+  }
+  
+  .RewardText {
+    text-align: center;
+    font-size: 14px;
+    color: var(--app-primary-color);
+  }
+  
+  .NotificationButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .CancelButton,
+  .BuyButton {
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    font-family: arial;
+    font-size: 15px;
+    gap: 5px;
+    padding: 20px;
+    font-weight: 600;
+    background: #248bdaf3;
+    transition: background 0.2s ease-in-out;
+  }
+  .CancelButton{
+    background: var(--head-background);
+  }
+  
