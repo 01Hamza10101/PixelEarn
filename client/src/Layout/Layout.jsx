@@ -1,9 +1,53 @@
 import './Layout.css';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+
+import { useDispatch, useSelector } from 'react-redux';
+import {ErrorHandlerBackend,auth} from '../Redux/Userslice';
+import {GetWalletdata,GetLeaderboarddata,ErrorHandlerBackendW} from '../Redux/Walletslice';
+
 function Layout() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const ErrorMsgBackend = useSelector(state => state.User.ErrorMsgBackend)
+    const ErrorMsgWallet = useSelector(state => state.Wallet.ErrorMsgBackend);
+    
+    const user = useSelector(state => state.User.User);
+    const Authorized = useSelector(state => state.User.isAuthorized)
+    const Walletdata = useSelector(state => state.Wallet.Wallet);
 
+    // useEffect(()=>{
+    //     const token = localStorage.getItem('token');
+    //     if (ErrorMsgBackend.msg === 'Please login') {
+    //         navigate('/login');
+    //         localStorage.removeItem('token');
+    //     }
+    //     if(token !== ''){
+    //         dispatch(auth());
+    //     }
+    //     console.log(ErrorMsgBackend,token);
+    // },[]);'
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token !== '') {
+            // dispatch(getToken());
+            dispatch(auth());
+        }
+        // console.log("working auth ", Authorized)
+        if(Authorized === false){
+            navigate("/login");
+        }
+        dispatch(GetWalletdata());
+        dispatch(GetLeaderboarddata());
+    }, [Authorized]);
+    
+    function handleError() {
+        dispatch(ErrorHandlerBackend());
+        dispatch(ErrorHandlerBackendW());
+    }
+    
     return (
         <div className='Layout'>
             <div className="head">
@@ -19,12 +63,23 @@ function Layout() {
 
                 <div className='Pixels' onClick={() => navigate('/Wallet')}>
                     <div className='PixelIcon'></div>
-                    <span>1423</span>
+                    <span>{Walletdata?.Pxbalance}</span>
                 </div>
 
-                <button className='Store_button'>
+                <button className='Store_button' onClick={() => navigate('/Shop')}>
                     <img className='ftrInvert' src="https://cdn3.iconfinder.com/data/icons/shopping-28/32/storefront-512.png" alt="Shop" />
                 </button>
+                
+                <div className={ErrorMsgBackend.display || ErrorMsgWallet.display ? "NotificationContaner" : "hide"} >
+                    <span style={{color:ErrorMsgBackend.success || ErrorMsgWallet.success ? "#3aff3a" : "red"}}>
+                       {ErrorMsgBackend?.msg || ErrorMsgWallet.msg}
+                    </span>
+                    <div className="Cancel_Btn" onClick={handleError}>
+                        <button>
+                        <img className='ftrInvert6' src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-close-round-512.png" alt="Cancel" />
+                        </button>
+                    </div>
+                </div>
             </div>
             <div className="body">
                 {<Outlet />}

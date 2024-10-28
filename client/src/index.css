@@ -21,12 +21,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
-  --fade-in-duration: 20ms;
+  --fade-in-duration: 100ms;
   --fade-in-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  --fade-in-delay: 50ms;
+  --fade-in-delay: 150ms;
 }
 
-.History,.Wallet,.Home{
+.History,.Wallet,.Home,.SignUp,.Login,.Invite,.Leaderboard,.Shop{
   opacity: 0;
   animation: fadeIn var(--fade-in-duration) var(--fade-in-timing-function) var(--fade-in-delay) forwards;
 }

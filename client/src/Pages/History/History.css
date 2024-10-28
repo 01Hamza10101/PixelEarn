@@ -1,3 +1,9 @@
+.History{
+    height: calc(100vh - 65px);
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
 .History .Hhead{
     display: flex;
     padding: 10px;

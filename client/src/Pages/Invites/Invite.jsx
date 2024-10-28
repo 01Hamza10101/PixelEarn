@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import './Invite.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useLocation} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 function Invite() {
     const navigate = useNavigate();
     const [isCopied, setIsCopied] = useState(false);
+    const location = useLocation();
+    const InvitesList = useSelector(state => state.Wallet.Wallet.InviteList);
+    const UserID = useSelector(state => state.Wallet.Wallet.UserId);
 
-    const handleCopy = (text) => {
-        navigator.clipboard.writeText(text).then(() => {
-            console.log('Coordinates copied to clipboard!');
+    
+    const handleCopy = () => {
+        navigator.clipboard.writeText(`${import.meta.env.VITE_APP_Current_URL}/Signup?RefreelID=${UserID}`).then(() => {
+            console.log('Coordinates copied to clipboard!',import.meta.env.VITE_APP_Current_URL ,location);
             setIsCopied(true);
             setTimeout(() => {
                 setIsCopied(false);
@@ -32,7 +37,7 @@ function Invite() {
                 <div className="Title_Invite">Invite frens</div>
                 <div className="description_container">
                     <div>Invite frens to get bonuses!</div>
-                    <div> Your frens: <span>124</span></div>
+                    <div> Your frens: <span>{InvitesList?.length}</span></div>
                 </div>
                 <div className="Invite_buttons">
                     <div onClick={handleCopy}>
@@ -42,64 +47,64 @@ function Invite() {
                         <button className='layoutBtn'>Share</button>
                     </div>
                 </div>
-                <div class="info_layout">
-                    <div class="benefits_container">
+                <div className="info_layout">
+                    <div className="benefits_container">
                         {/* <!-- Benefit Item 1 --> */}
-                        <div class="benefits_item">
+                        <div className="benefits_item">
                             <div>
-                                <span class="gray">Invite fren</span>
+                                <span className="gray">Invite fren</span>
                             </div>
                             <div>
-                                <span class="bold bright">8 PX </span>
-                                <span class="gray">for you and fren.</span>
+                                <span className="bold bright">100 PX </span>
+                                <span className="gray">for you and fren.</span>
                             </div>
                         </div>
 
                         {/* <!-- Benefit Item 2 --> */}
-                        <div class="benefits_item">
+                        <div className="benefits_item">
                             <div>
-                                <span class="gray">Fren with</span>
-                                <span class="bold purple">Telegram Premium</span>
+                                <span className="gray">Fren with</span>
+                                <span className="bold purple">Telegram Premium</span>
                             </div>
                             <div>
-                                <span class="bold bright">64 PX</span>
-                                <span class="gray"> for you and fren.</span>
+                                <span className="bold bright">64 PX</span>
+                                <span className="gray"> for you and fren.</span>
                             </div>
                         </div>
 
                         {/* <!-- Divider --> */}
-                        <div class="divider"></div>
+                        <div className="divider"></div>
 
                         {/* <!-- Benefit Item 3 --> */}
-                        <div class="benefits_item">
+                        <div className="benefits_item">
                             <div>
-                                <span class="gray">Mining drop</span>
+                                <span className="gray">Mining drop</span>
                             </div>
                             <div>
-                                <span class="white bright">16%</span>
-                                <span class="gray"> of all frens' mining</span>
+                                <span className="white bright">16%</span>
+                                <span className="gray"> of all frens' mining</span>
                             </div>
                         </div>
 
                         {/* <!-- Benefit Item 4 --> */}
-                        <div class="benefits_item">
+                        <div className="benefits_item">
                             <div>
-                                <span class="gray">League bonuses</span>
+                                <span className="gray">League bonuses</span>
                             </div>
                             <div>
-                                <span class="bold bright">100% </span>
-                                <span class="gray"> for you and fren.</span>
+                                <span className="bold bright">100% </span>
+                                <span className="gray"> for you and fren.</span>
                             </div>
                         </div>
 
                         {/* <!-- Benefit Item 5 --> */}
-                        <div class="benefits_item">
+                        <div className="benefits_item">
                             <div>
-                                <span class="gray">Rank ‟Leader”</span>
+                                <span className="gray">Rank ‟Leader”</span>
                             </div>
                             <div>
-                                <span class="bold">Mega Drop </span>
-                                <span class="gray">If your referrals invite 1000+ people.</span>
+                                <span className="bold">Mega Drop </span>
+                                <span className="gray">If your referrals invite 1000+ people.</span>
                             </div>
                         </div>
                     </div>

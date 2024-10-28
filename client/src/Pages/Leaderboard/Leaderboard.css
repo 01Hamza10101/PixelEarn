@@ -225,12 +225,14 @@
 
 .Leaderboard .rating_item .rating_main_info{
     width: 60%;
+    padding: 5px;
 }
 
 .Leaderboard .rating_item ._rating_Pixel{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 80px;
 }
 
 .Leaderboard .rating_item ._rating_Pixel .PixelIcon{

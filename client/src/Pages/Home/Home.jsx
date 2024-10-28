@@ -1,56 +1,116 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './Home.css';
+import { io } from 'socket.io-client';
+import { GetTaskBoosts , LevelUPBoosts ,ErrorHandlerBackendW,PaintPixel,handleCanvasCordinate} from '../../Redux/Walletslice';
+import { useSelector, useDispatch } from 'react-redux';
+
+let socket = "";
 
 const Home = () => {
   const canvasRef = useRef(null);
   const canvasContainerRef = useRef(null);
   const [SelectedColor, setSelectedColor] = useState('rgb(255, 214, 53)');
-  const [pixelSize, setPixelSize] = useState(15); 
-  const [XY, setXY] = useState({ X: 123, Y: 234 });
-  const [zoomLevel, setZoomLevel] = useState(1); 
-  const [MaxEnergy, setMaxEnergy] = useState(9);
-  const [Energy, setEnergy] = useState(7);
-  const [TEnergyTime, setTEnergyTime] = useState(10);
-  const [EnergyTime, setEnergyTime] = useState(0);
-  
-  const [clickedPixels, setClickedPixels] = useState([]);
+  const Walletdata = useSelector(state => state.Wallet.Wallet);
+  const EnergyPrice = useSelector(state => state.Wallet.TasksBoosts);
+  const CanvasCoordinates = useSelector(state => state.Wallet.CanvasCordinate);
+  const dispatch = useDispatch();
 
-  const [CanvasCoordinates, setCanvasCoordinates] = useState(() => {
-    const savedCoordinates = localStorage.getItem('canvasCoordinates');
-    return savedCoordinates ? JSON.parse(savedCoordinates) : [];
-  });
+  const [pixelSize, setPixelSize] = useState(15);
+  const [XY, setXY] = useState({ X: 123, Y: 234 });
+  const [zoomLevel, setZoomLevel] = useState(1);
+  
+  const [MaxEnergy, setMaxEnergy] = useState(0);
+  const [Energy, setEnergy] = useState(10);
+  const [TEnergyTime, setTEnergyTime] = useState(0);
+  const [EnergyTime, setEnergyTime] = useState(0);
+  const [AmoutPixels, setAmoutPixels] = useState("");
+
+  const [clickedPixels, setClickedPixels] = useState([]);
+  
+  
+  // const [CanvasCoordinates, setCanvasCoordinates] = useState([]);
+  
+  const [isLoading, setisLoading] = useState(true);
+
+  useEffect(() => {
+    // Initialize socket connection only once when the component mounts
+    socket = io(`${import.meta.env.VITE_APP_API_URL}`);
+    
+    return () => {
+      // Clean up socket connection on component unmount
+      socket.disconnect();
+    };
+  }, []);
+  
+  if (isLoading) {
+    dispatch(GetTaskBoosts());
+      setisLoading(false);
+  }
+  
+  useEffect(()=>{
+    function HandleEnergyPrice() {
+      setAmoutPixels(EnergyPrice?.Boosts?.[0]?.Rewardslvl[Walletdata?.PaintRewardLvl]?.[1]);
+      setTEnergyTime(EnergyPrice?.Boosts?.[1]?.Rewardslvl[Walletdata?.RechargingSpeedLvl]?.[1]);
+      setMaxEnergy(EnergyPrice?.Boosts?.[2]?.Rewardslvl[Walletdata?.EnergyLimitLvl]?.[1]);
+    }
+    HandleEnergyPrice();
+  },[EnergyPrice,Walletdata])
 
   useEffect(() => {
     if (Energy === MaxEnergy) {
-      return;
+      return;  // No need to continue if energy is full
     }
   
     const intervalId = setInterval(() => {
-      setEnergyTime((prev) => {
-        if (prev < TEnergyTime) {
-          return prev + 1;
+      setEnergyTime((prevTime) => {
+        // Increment energy time, reset if it reaches TEnergyTime
+        if (prevTime + 1 < TEnergyTime) {
+          return prevTime + 1;
         } else {
-          return 0; 
+          setEnergy((prevEnergy) => {
+            // Only increase energy if it's below MaxEnergy
+            if (prevEnergy < MaxEnergy) {
+              console.log('Energy refilled');
+              return prevEnergy + 1;
+            }
+            return prevEnergy;
+          });
+          return 0;  // Reset timer after energy refills
         }
       });
-  
-      setEnergy((prevEnergy) => {
-        if (EnergyTime === TEnergyTime) {
-          console.log('Energy refilled');
-          return Math.min(prevEnergy + 1, MaxEnergy);
-        }
-        return prevEnergy;
-      });
-  
-      if (EnergyTime === TEnergyTime) {
-        clearInterval(intervalId);
-      }
     }, 1000);
   
+    // Clean up the interval on unmount
     return () => clearInterval(intervalId);
-  }, [TEnergyTime, EnergyTime, Energy, MaxEnergy]);
+  }, [Energy, MaxEnergy, TEnergyTime]);
   
-  
+
+  useEffect(() => {
+    socket.on('pixel-Total-data', (data) => {
+      dispatch(handleCanvasCordinate(data));
+    });
+
+    // Listen for individual pixel updates
+    socket.on('pixel-update', (data) => {
+      console.log('Received pixel update:', data);
+
+      // Update the coordinates locally
+      const updatedCoordinates = CanvasCoordinates.map(coord =>
+        coord.Id === data.Id ? { ...coord, color: data.color } : coord
+      );
+
+      // If the pixel doesn't already exist, add it
+      const finalCoordinates = updatedCoordinates.some(coord => coord.Id === data.Id)
+        ? updatedCoordinates
+        : [...updatedCoordinates, data];
+
+        dispatch(handleCanvasCordinate(finalCoordinates));
+      });
+    return () => {
+      socket.off('pixel-Total-data');
+      socket.off('pixel-update');
+    };
+}, [CanvasCoordinates]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -68,6 +128,17 @@ const Home = () => {
     });
   }, [CanvasCoordinates, pixelSize]);
 
+  const createPixelGrid = (numberOfColumns, numberOfRows) => {
+    const grid = [];
+    for (let row = 0; row < numberOfRows; row++) {
+      for (let col = 0; col < numberOfColumns; col++) {
+        const id = row * numberOfColumns + col;  // Unique ID
+        grid.push({ id, row, col, color: '#ffffff' });  // Store pixel info
+      }
+    }
+    return grid;
+  };
+
   const handleCanvasClick = (e) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
@@ -79,7 +150,8 @@ const Home = () => {
     const y = Math.floor((e.clientY - rect.top) * scaleY / pixelSize) * pixelSize;
 
     setXY({ X: x, Y: y });
-
+    let numberOfColumns = canvas.width / pixelSize;
+    let numberOfrows = canvas.height / pixelSize;
     highlightSelectedPixel(x, y);
   };
 
@@ -105,22 +177,31 @@ const Home = () => {
 
     if (Energy > 0) {
       Animate(e);
-      console.log(SelectedColor)
       setEnergy(prev => prev - 1)
       context.fillStyle = SelectedColor;
       context.fillRect(XY.X, XY.Y, pixelSize, pixelSize);
+      
+      dispatch(PaintPixel({Pixel:AmoutPixels,XY}));
+      const newCoordinate = { Id: `${XY.X}${XY.Y}`, color: SelectedColor, X: XY.X, Y: XY.Y };
 
-      const updatedCoordinates = [...CanvasCoordinates, { color: SelectedColor, X: XY.X, Y: XY.Y }];
-      setCanvasCoordinates(updatedCoordinates);
+      const updatedCoordinates = CanvasCoordinates.map(coord =>
+        coord.Id === newCoordinate.Id ? { ...coord, color: SelectedColor } : coord
+      );
 
-      localStorage.setItem('canvasCoordinates', JSON.stringify(updatedCoordinates));
+      const finalCoordinates = updatedCoordinates.some(coord => coord.Id === newCoordinate.Id)
+        ? updatedCoordinates
+        : [...updatedCoordinates, newCoordinate];
+
+      socket.emit('pixel-update', newCoordinate);
+      dispatch(handleCanvasCordinate(finalCoordinates));
+
     }
   };
-  
-  function Animate(e){
+
+  function Animate(e) {
     setClickedPixels(prevPixels => [
       ...prevPixels,
-      { x: e.clientX - 30, key: Math.random() } 
+      { x: e.clientX - 30, key: Math.random() }
     ]);
   }
 
@@ -146,7 +227,6 @@ const Home = () => {
 
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text).then(() => {
-      console.log('Coordinates copied to clipboard!');
       alert('Copied to clipboard!');
     }).catch((err) => {
       console.error('Failed to copy: ', err);
@@ -160,7 +240,7 @@ const Home = () => {
   return (
     <div className='Home'>
       <div
-        ref={canvasContainerRef} 
+        ref={canvasContainerRef}
         className='CanvasDiv'
         style={{
           width: `332px`,
@@ -202,19 +282,20 @@ const Home = () => {
               key={index}
               className="Color_Item"
               style={{ backgroundColor: color }}
-              onClick={() => setSelectedColor(color)} 
+              onClick={() => setSelectedColor(color)}
             />
           ))}
 
         </div>
 
         <div className="Paint_button" onClick={HandlePaint}>
-        {clickedPixels.map((pixel, index) => (
-          <div key={pixel.key} className='Px_Animation' style={{ left: `${pixel.x}px` }}>
-            3.5 <div className='PixelIcon'></div>
-          </div>
-        ))}
-           <div className="progress" style={{ width: `${calculateProgress()}%`, transition: 'width 0.3s ease-in-out' }}>
+          {clickedPixels.map((pixel, index) => (
+            <div key={pixel.key} className='Px_Animation' style={{ left: `${pixel.x}px` }}>
+              {AmoutPixels}
+              <div className='PixelIcon'></div>
+            </div>
+          ))}
+          <div className="progress" style={{ width: `${calculateProgress()}%`, transition: 'width 0.3s ease-in-out' }}>
           </div>
 
           <span>{Energy} <img className='ftrInvert' src="https://cdn2.iconfinder.com/data/icons/rpg-fantasy-game-basic-ui/512/element_thunder_energy_electric_lightning_flash-512.png" alt="Energy" /></span>

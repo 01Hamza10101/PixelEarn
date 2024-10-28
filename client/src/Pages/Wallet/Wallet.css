@@ -1,5 +1,5 @@
 .Wallet {
-    height: 600px;
+    height: calc(100vh -  65px);
     overflow: scroll;
     scrollbar-width: none;
 }
@@ -214,16 +214,16 @@
     }
     100% {
       display: none;
-      transform: translateY(400px); /* Slide down by 300px */
+      transform: translateY(400px); 
     }
   }
   
   .Wallet .Wbody .Tasks_Boosts .NotificationContainer {
-    position: absolute;
+    position: fixed;
     background: #202a38;
     height: 320px;
     bottom: 0;
-    width: 89%;
+    user-select: none;
     border-radius: 10px 10px 0 0;
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
     overflow: hidden;
@@ -329,3 +329,4 @@
     background: var(--head-background);
   }
   
+
